@@ -18,8 +18,7 @@ Setup on Ubuntu 14.04 LTS for local development
 
 Make sure your system is up-to-date.
 
-    sudo apt-get update
-    sudo apt-get upgrade
+    sudo apt-get update ; sudo apt-get upgrade
 
 Installing [rbenv](https://github.com/sstephenson/rbenv) using a Installer
 
@@ -27,26 +26,21 @@ Installing [rbenv](https://github.com/sstephenson/rbenv) using a Installer
                          libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 \
                          libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties
 
-    cd
-    git clone git://github.com/sstephenson/rbenv.git .rbenv
-    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-    echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-    exec $SHELL
+    cd && git clone git://github.com/sstephenson/rbenv.git .rbenv && \
+                        echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc && \
+                        echo 'eval "$(rbenv init -)"' >> ~/.bashrc && exec $SHELL
 
-    git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-    echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
-    exec $SHELL
+    git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build && \
+                        echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc \
+                        && exec $SHELL
 
 Install Ruby 2.1.2 through rbenv:
 
-    rbenv install 2.1.2
-    rbenv global 2.1.2
+    rbenv install 2.1.2 && rbenv global 2.1.2
 
 Install bundler
 
-    echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-    gem install bundler
-    rbenv rehash
+    echo "gem: --no-ri --no-rdoc" > ~/.gemrc && gem install bundler && rbenv rehash
 
 ### Step 2: Install MySQL
 
@@ -56,36 +50,27 @@ Install bundler
 
 Be sure to install the latest stable Redis, as the package in the distro may be a bit old:
 
-    sudo apt-add-repository -y ppa:rwky/redis
-    sudo apt-get update
-    sudo apt-get install redis-server
+    sudo apt-add-repository -y ppa:rwky/redis && sudo apt-get update && sudo apt-get install redis-server
 
 ### Step 4: Install RabbitMQ
 
 Please follow instructions here: https://www.rabbitmq.com/install-debian.html
 
-    sudo apt-add-repository 'deb http://www.rabbitmq.com/debian/ testing main'
-    curl http://www.rabbitmq.com/rabbitmq-signing-key-public.asc | sudo apt-key add -
-    sudo apt-get update
-    sudo apt-get install rabbitmq-server
+    sudo apt-add-repository 'deb http://www.rabbitmq.com/debian/ testing main' && \
+        curl http://www.rabbitmq.com/rabbitmq-signing-key-public.asc | sudo apt-key add - \
+        && sudo apt-get update && sudo apt-get install rabbitmq-server
 
-    sudo rabbitmq-plugins enable rabbitmq_management
-    sudo service rabbitmq-server restart
-    wget http://localhost:15672/cli/rabbitmqadmin
-    chmod +x rabbitmqadmin
-    sudo mv rabbitmqadmin /usr/local/sbin
+    sudo rabbitmq-plugins enable rabbitmq_management && sudo service rabbitmq-server restart \
+        && wget http://localhost:15672/cli/rabbitmqadmin && chmod +x rabbitmqadmin \
+        && sudo mv rabbitmqadmin /usr/local/sbin
 
 ### Step 5: Install Bitcoind
 
-    sudo add-apt-repository ppa:bitcoin/bitcoin
-    sudo apt-get update
-    sudo apt-get install bitcoind
+    sudo add-apt-repository ppa:bitcoin/bitcoin && sudo apt-get update && sudo apt-get install bitcoind
 
 **Configure**
 
-    mkdir -p ~/.bitcoin
-    touch ~/.bitcoin/bitcoin.conf
-    vim ~/.bitcoin/bitcoin.conf
+    mkdir -p ~/.bitcoin && touch ~/.bitcoin/bitcoin.conf && vim ~/.bitcoin/bitcoin.conf
 
 Insert the following lines into the bitcoin.conf, and replce with your username and password.
 
@@ -135,9 +120,7 @@ A JavaScript Runtime is needed for Asset Pipeline to work. Any runtime will do b
 
 **Clone the project**
 
-    git clone git://github.com/peatio/peatio.git
-    cd peatio
-    bundle install
+    git clone git://github.com/peatio/peatio.git && cd peatio && bundle install
 
 **Prepare configure files**
 
